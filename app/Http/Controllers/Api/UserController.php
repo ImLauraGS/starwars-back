@@ -82,4 +82,13 @@ class UserController extends Controller
             return response()->json(['status' => 0, 'msg' => 'Error al iniciar sesión'], 500);
         }
     }
+    public function logout(Request $request)
+    {
+        try {
+            $request->user()->tokens()->delete();
+            return response()->json(['status' => 1, 'msg' => 'Sesión cerrada correctamente'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 0, 'msg' => 'Error al cerrar sesión'], 500);
+        }
+    }
 }
